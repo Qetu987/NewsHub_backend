@@ -1,7 +1,38 @@
-from django.shortcuts import render
-from django.views import View
+from django.shortcuts import render, redirect
+from django.views.generic.base import View
+from blog.models import Post, Like
+from django.db.models import Count
+from django.contrib.auth.models import AnonymousUser
 
-# Create your views here.
-class Home(View):
+
+class Posts_list_base(View):
+    anonimys = AnonymousUser()
+
+    def get_post_data(self, queryset):
+        data = list()
+        for post in queryset:
+            post_data = {
+                # модифицируем если надо что-то добавить в инфо про пост
+                'post_data': post,
+            }
+            data.append(post_data)
+        return data
+    
     def get(self, request):
-        return render(request, 'home.html')
+        context = self.get_data()
+        return render(request, self.template_name, context)
+
+
+class PostsList(Posts_list_base):
+    template_name = "blog/post_list.html"
+    
+    def get_data(self):
+        queryset = Post.objects.filter(draft=False).order_by('-date')
+        data = self.get_post_data(queryset)
+
+        # окнтекст страницы
+        context = {
+            'posts_list': data,
+        }
+
+        return context
