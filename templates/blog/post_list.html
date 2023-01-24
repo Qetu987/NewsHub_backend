@@ -5,20 +5,19 @@
 		<div class="container">
 			{% include "include/title.html" %}
 
+
 			<div class="row">
 				<div class="col-lg-8">
 					<!-- create post -->
 					{% include "include/create_post_plate.html" %}
 					<!-- end create post -->
+					{% for post in posts_list %}
 
 					<!-- post text -->
                     <!-- https://stackoverflow.com/questions/57219323/is-there-a-way-to-use-mixins-in-django-templates-like-in-sass -->
-                    {% include "include/post.html" with post_data="some info" %}
+                    	{% include "include/post.html" with post=post %}
 					<!-- end post text -->
-
-					<!-- post text -->
-					{% include "include/post.html" %}
-					<!-- end post text -->
+					{% endfor %}
 				</div>
 				<div class="col-lg-4">
 					<div class="sticky">

@@ -4,30 +4,33 @@
     <div class="post_header d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
             <img src="{% static 'img/profile.png' %}" alt="" class="profile_img">
-            <h3 class="name">Andrew</h3>
-            <p class="text">@andrew</p>
+            {% if post.post_data.owner.first_name %}
+                <h3 class="name">{{ post.post_data.owner.first_name }}</h3>
+            {% endif %}
+            <p class="text">@{{ post.post_data.owner.username }} </p>
         </div>
-        <p class="text">1h</p>
+        <p class="text">{{ post.post_data.date|timesince }}</p>
     </div>
     <div class="post_title">
-        <h3 class="name">The details in TLOU2 are breathtaking</h3>
+        <h3 class="name">{{ post.post_data.title }}</h3>
         <div class="topic_group d-flex flex-wrap">
-            <div class="badges">
-                <a href=""><p>Topic name</p></a>
-            </div>
-            <div class="badges">
-                <a href=""><p>Topic name</p></a>
-            </div>
+            {% for tag in post.post_data.tag.all %}
+                <div class="badges">
+                    <a href=""><p>{{ tag.text }}</p></a>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="post_body">
-        <!-- если есть картинка -->
-        <img src="{% static 'img/post.png' %}" alt="" class="post_img">
-        <!-- если есть картинка -->
-
-        <!-- если картинки нет -->
-        <!-- <p class="text">We bought this house in January of 2020. Before we purchased it, it was neglected by the current owner and more problems like this are starting to pop up. I don’t think it’s structural issue, just a bad drywall job from some other issues we’ve found so far.</p> -->
-        <!-- если картинки нет -->
+        {% if post.post_data.poster %}
+            <!-- если есть картинка -->
+            <img src="{{post.post_data.poster.url}}" alt="" class="post_img">
+            <!-- если есть картинка -->
+        {% else %}
+            <!-- если картинки нет -->
+            <p class="text">{{ post.post_data.text }}</p>
+            <!-- если картинки нет -->
+        {% endif %}
         <div class="post_control d-flex">
             <div class="like">
                 <a href="">
