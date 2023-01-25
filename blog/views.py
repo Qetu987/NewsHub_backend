@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
-from blog.models import Post, Like
-from django.db.models import Count
+from blog.models import Post, Like, Reviews
 from django.contrib.auth.models import AnonymousUser
 
 
@@ -11,9 +10,13 @@ class Posts_list_base(View):
     def get_post_data(self, queryset):
         data = list()
         for post in queryset:
+            likes = Like.objects.filter(post=post)
+            comments = Reviews.objects.filter(post=post)
             post_data = {
                 # модифицируем если надо что-то добавить в инфо про пост
                 'post_data': post,
+                'likes': likes,
+                'comments': comments,
             }
             data.append(post_data)
         return data
