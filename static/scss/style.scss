@@ -312,6 +312,13 @@ p.text{
 			margin-top: 16px;
 
 			.like{
+				button{
+					border: none;
+					background: none;
+					margin: 0;
+					padding: 0;
+				}
+
 				a{
 					text-decoration: none;
 				}
@@ -338,6 +345,13 @@ p.text{
 					svg{
 						fill: $secondary;
 						transition: $naw_transition;
+					}
+				}
+
+				// если пост был лайкнутый 
+				.is_like_img{
+					svg{
+						fill: $danger;
 					}
 				}
 				p{

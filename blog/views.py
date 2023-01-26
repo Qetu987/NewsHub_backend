@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from blog.models import Post, Like, Reviews
 from django.contrib.auth.models import AnonymousUser
+from blog.forms import LikeForm
 
 
 class Posts_list_base(View):
@@ -17,6 +18,7 @@ class Posts_list_base(View):
                 'post_data': post,
                 'likes': likes,
                 'comments': comments,
+                'user_likes': [i['user'] for i in Like.objects.values('user').filter(post=post)],
             }
             data.append(post_data)
         return data
@@ -39,3 +41,20 @@ class PostsList(Posts_list_base):
         }
 
         return context
+
+class LikePost(View):
+    anonimys = AnonymousUser()
+
+    def post(self, request):
+        form = LikeForm(request.POST)
+        if form.is_valid() and request.user != self.anonimys:
+            post = form.cleaned_data.get('post')
+            likes = Like.objects.filter(post=post)
+            if request.user in [like.user for like in likes]:
+                obj = Like.objects.get(post=form.cleaned_data.get('post'), user=request.user)
+                obj.delete()
+            else:
+                form = form.save(commit=False)
+                form.user = request.user
+                form.save()
+        return redirect('home')
