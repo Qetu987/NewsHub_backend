@@ -18,6 +18,7 @@ class Posts_list_base(View):
                 'post_data': post,
                 'likes': likes,
                 'comments': comments,
+                'user_likes': [i['user'] for i in Like.objects.values('user').filter(post=post)],
             }
             data.append(post_data)
         return data

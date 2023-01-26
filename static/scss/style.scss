@@ -347,6 +347,13 @@ p.text{
 						transition: $naw_transition;
 					}
 				}
+
+				// если пост был лайкнутый 
+				.is_like_img{
+					svg{
+						fill: $danger;
+					}
+				}
 				p{
 					@include font;
 					color: $secondary;
