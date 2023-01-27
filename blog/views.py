@@ -53,6 +53,7 @@ class PostsList(Posts_list_base):
         context = {
             'posts_list': posts_data,
             'top_users': top_users_by_followers,
+            'get_following': self.get_following() if self.request.user!=self.anonimys else None,
         }
 
         return context

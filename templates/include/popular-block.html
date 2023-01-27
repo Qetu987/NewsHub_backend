@@ -18,7 +18,23 @@
                 </div>
             </div>
             <div class="follow_btn">
-                <a href="" class="btn btn-black"><p>Follow</p></a>
+                {% if user.is_authenticated %}
+                {% if top_user != user %}
+                    {% if top_user in get_following %}
+                        <form action="{% url 'unfollow' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="follow_by" id="follow_by_user" value="{{ top_user.id }}">
+                            <button type="submit" class="btn btn-black"><p>Unfollow</p></button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'follow' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="follow_by" id="follow_by_user" value="{{ top_user.id }}">
+                            <button type="submit" class="btn btn-black"><p>Follow</p></button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+                {% endif %}
             </div>
         </div>
         {% endfor %}

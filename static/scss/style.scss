@@ -249,6 +249,14 @@ footer{
 
 }
 
+button.btn{
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
 .btn-primary{
 	@include colored_btn;
 }
@@ -335,6 +343,7 @@ p.text{
 					background: none;
 					margin: 0;
 					padding: 0;
+					cursor: pointer;
 				}
 
 				a{
