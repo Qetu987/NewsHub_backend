@@ -253,6 +253,24 @@ footer{
 	@include colored_btn;
 }
 
+.btn-outline-primary{
+	p{
+		color: $primary;
+		border: $primary solid 1px;
+		padding: calc(8px - 1px) calc(16px - 1px);
+		transition: $naw_transition;
+	}
+
+	&:hover p{
+		background: $primary;
+		color: $white;
+	}
+
+	&:active p{
+		box-shadow: 0px 0px 0px 4px rgba($primary, .4);
+	}
+}
+
 .btn-black{
 	@include colored_btn ($color_bg:$black);
 }
@@ -506,4 +524,8 @@ p.text{
 .sticky{
 	position: sticky;
 	top: calc(56px + 24px);
+}
+
+.margin-l{
+	margin-left: 16px;
 }
