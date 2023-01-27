@@ -33,7 +33,8 @@
                                 <img src="{% static 'img/profile.png' %}" alt="">
                             </div>
                         {% else %}
-                            <a href="{% url 'login' %}">login </a>  / <a href="{% url 'register' %}">register</a>  
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary margin-l"><p>login</p></a> 
+                            <a href="{% url 'register' %}" class="btn btn-primary margin-l"><p>Register</p></a> 
                         
                         {% endif %}
 
