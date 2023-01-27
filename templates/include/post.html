@@ -6,6 +6,8 @@
             <img src="{% static 'img/profile.png' %}" alt="" class="profile_img">
             {% if post.post_data.owner.first_name %}
                 <h3 class="name">{{ post.post_data.owner.first_name }}</h3>
+            {% else %}
+                <h3 class="name">{{ post.post_data.owner.username }}</h3>
             {% endif %}
             <p class="text">@{{ post.post_data.owner.username }} </p>
         </div>
